@@ -77,9 +77,23 @@ Unless you already know a ton about what you're doing, we'll start with [Visual 
       * `stylish-haskell`
 
 
+### Security & PGP
+
+We take security very seriously and make heavy use of [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy). The most common tool for using PGP is [GnuPGP](https://www.gnupg.org/), or GPG for short. PGP with GPG - it gets annoying.
+
+We also use [Keybase](https://keybase.io/) for managing our PGP identity. If you haven't sign up for that, do so now.
+
+  1. Install GPG: `nix-env -f '<nixpkgs>' -iA gnupg`
+  2. Install the Keybase client: `nix-env -f '<nixpkgs>' -iA keybase`
+  3. Log in to the Keybase client: `keybase login`
+  4. Import your Keybase identity into GPG:
+      * `keybase pgp export --secret | gpg --allow-secret-key-import --import`
+      * (see [here](https://iwader.co.uk/post/signing-git-commits-keybase-gpg-key))
+
 ### Build environment
 
 Install the following tools for working with code:
 
   1. Install Haskell's [stack](http://haskellstack.org) tool: `nix-env -f '<nixpkgs>' -iA stack`
   2. Install the Nix [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop): `nix-env -f '<nixpkgs>' -iA nix-repl`
+  3. Install [git-crypt](https://www.agwa.name/projects/git-crypt/) for working with secret files: `nix-env -f '<nixpkgs>' -iA git-crypt`
