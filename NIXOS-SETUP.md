@@ -19,4 +19,3 @@
   4. Log in as the non-root user (`default` is the name used above).
   5. Set up your terminal to use your user's channel:
       * `echo 'export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(whoami)/channels/nixpkgs:$NIX_PATH' > ~/.bashrc`
-      * `source ~/.bashrc  # to reload your configuration`

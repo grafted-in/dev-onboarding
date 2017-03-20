@@ -8,6 +8,7 @@ Anything marked with \*\* means that the service is generally useful and you are
 
   1. [LastPass](https://www.lastpass.com/) \*\*
       * You will need to use long, randomized passwords as much as possible so we use a [password manager](https://en.wikipedia.org/wiki/Password_manager) to make this possible. We will also share some passwords with you via this service.
+      * Enable 2-factor authentication (2FA) as soon as possible.
   2. Grafted-In email address
   3. [Keybase](https://keybase.io/) \*\*
       * You may need an invitation to access this. Request one if you don't have it already.
@@ -15,11 +16,14 @@ Anything marked with \*\* means that the service is generally useful and you are
       * Keybase also has some very neat features if you install their client software on your computer.
   3. [GitHub](https://github.com/) \*\*
       * Many open source projects are hosted by this service and Grafted-In also uses it extensively.
+      * Enable 2-factor authentication (2FA) as soon as possible.
       * As soon as possible, add your PGP public key to your GitHub account to allow for commit verification.
   4. [GitLab](https://gitlab.com/)
       * Grafted-In uses this to host some some projects.
+      * Enable 2-factor authentication (2FA) as soon as possible.
   5. [BitBucket](https://bitbucket.org/) (optional)
       * Grafted-In uses this for some projects, but seldomly. You can leave this one alone for now unless told otherwise.
+      * When you do sign up, enable 2-factor authentication (2FA) as soon as possible.
 
 
 ## Your computer
@@ -63,7 +67,7 @@ Unless you already know a ton about what you're doing, we'll start with [Visual 
 
   1. Allow restrictive licensed applications to be installed:
       * `mkdir -p ~/.nixpkgs`
-      * `echo '{ allowUnfree = true; }' > ~/.nixpkgs/config`
+      * `echo '{ allowUnfree = true; }' > ~/.nixpkgs/config.nix`
   1. Install the editor: `nix-env -f '<nixpkgs>' -iA vscode`
   2. Open it: `code`
   3. Install the following extensions (these depend on some the tools you installed in **Build environment** above):
@@ -90,7 +94,7 @@ We'll use [Git](https://git-scm.com/) for [version control](https://en.wikipedia
 
 ### Security & PGP
 
-We take security very seriously and make heavy use of [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy). The most common tool for using PGP is [GnuPGP](https://www.gnupg.org/), or GPG for short. PGP with GPG - it gets annoying.
+We take security very seriously and make heavy use of [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy). The most common tool for using PGP is [GnuPG](https://www.gnupg.org/), or GPG for short. PGP with GPG - it gets annoying.
 
 We also use [Keybase](https://keybase.io/) for managing PGP identities. If you haven't signed up for that, do so now.
 
