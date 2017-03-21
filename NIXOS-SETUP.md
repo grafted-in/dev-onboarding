@@ -1,21 +1,26 @@
 # Setting Up a NixOS Machine
 
   1. Download the "Minimal installation CD, 64-bit" from [here](https://nixos.org/nixos/download.html).
-  2. Whether your creating a virtual machine (VM) or setting up your host, you can follow the instructions here to install: https://youtu.be/7B2hSo8ihjI
+  2. Whether you're creating a virtual machine (VM) or setting up your host, you can follow the instructions here to install: https://youtu.be/7B2hSo8ihjI
       * We use [VirtualBox](https://www.virtualbox.org/) for most things, so for a VM we recommend using it.
-  3. Create a non-root user with a password by adding something like this to `/etc/nixos/configuration.nix`:
+  4. Set a few configurations in `/etc/nixos/configuration.nix`:
+      * `environment.systemPackages = with pkgs; [ git gnumake nix-repl vim wget ];`
+      * `nix.extraOptions = "auto-optimise-store = true";`
+      * Create a non-root user with a password by adding something like this:
 
-        ```nix
-        users.users.default = {
-            isNormalUser = true;
-            home         = "/home/default";
-            password     = "insecure-password";
-            # hashedPassword = "some-hash"; # Use this for real security, but you need to know how to use it.
-        };
-        ```
+            ```nix
+            users.users.default = {
+                isNormalUser = true;
+                home         = "/home/default";
+                password     = "insecure-password";
+                # hashedPassword = "some-hash"; # Use this for real security, but you need to know how to use it.
+            };
+            ```
 
-        * Use this configuration by running `sudo nixos-rebuild switch`.
-
-  4. Log in as the non-root user (`default` is the name used above).
-  5. Set up your terminal to use your user's channel:
+  5. Start optimizing the store: `nix-store --optimize`.
+  6. Use this configuration and upgrade by running `sudo nixos-rebuild switch --upgrade`.
+  7. Log in as the non-root user (`default` is the name used above).
+  8. Set up your terminal to use your user's channel:
       * `echo 'export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(whoami)/channels/nixpkgs:$NIX_PATH' > ~/.bashrc`
+  9. (Optional) Clean up garbage and take a snapshot: `nix-collect-garbage -d`
+      * **WARNING**: This can be dangerous if your system is not stable. Try rebooting the machine and logging in to make sure things are working with the current profile before destroying your ability to rollback.
