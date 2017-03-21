@@ -4,7 +4,6 @@
   2. Whether you're creating a virtual machine (VM) or setting up your host, you can follow the instructions here to install: https://youtu.be/7B2hSo8ihjI
       * We use [VirtualBox](https://www.virtualbox.org/) for most things, so for a VM we recommend using it.
   4. Set a few configurations in `/etc/nixos/configuration.nix`:
-      * `environment.systemPackages = with pkgs; [ git gnumake nix-repl vim wget ];`
       * `nix.extraOptions = "auto-optimise-store = true";`
       * Create a non-root user with a password by adding something like this:
 
