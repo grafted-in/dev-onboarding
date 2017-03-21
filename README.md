@@ -54,11 +54,13 @@ To simplify development practices we try to all start out with an environment th
 
 Install the following tools for working with code:
 
-  1. Install the Nix [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop): `nix-env -f '<nixpkgs>' -iA nix-repl`
-  2. Install Haskell's [stack](http://haskellstack.org) tool: `nix-env -f '<nixpkgs>' -iA stack`
-  3. Install [Intero](https://hackage.haskell.org/package/intero) for editor support: `nix-env -f '<nixpkgs>' -iA haskellPackages.intero`
-  4. Install [HLint](http://community.haskell.org/~ndm/darcs/hlint/hlint.htm) for getting hints on how to improve your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.hlint`
-  5. Install [Stylish Haskell](https://github.com/jaspervdj/stylish-haskell/blob/master/README.markdown) for help formatting your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.stylish-haskell`
+  1. Install Haskell's [stack](http://haskellstack.org) tool: `nix-env -f '<nixpkgs>' -iA stack`
+      * On NixOS `stack` needs to use a system-installed GHC:
+          * `nix-env -f '<nixpkgs>' -iA ghc`
+          * `stack config set system-ghc --global true`
+  2. Install [Intero](https://hackage.haskell.org/package/intero) for editor support: `nix-env -f '<nixpkgs>' -iA haskellPackages.intero`
+  3. Install [HLint](http://community.haskell.org/~ndm/darcs/hlint/hlint.htm) for getting hints on how to improve your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.hlint`
+  4. Install [Stylish Haskell](https://github.com/jaspervdj/stylish-haskell/blob/master/README.markdown) for help formatting your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.stylish-haskell`
 
 
 ### Your editor
@@ -82,7 +84,7 @@ Unless you already know a ton about what you're doing, we'll start with [Visual 
 
 We'll use [Git](https://git-scm.com/) for [version control](https://en.wikipedia.org/wiki/Version_control).
 
-  1. Install git: `nix-env -f '<nixpkgs>' -iA git`
+  1. Install Git: `nix-env -f '<nixpkgs>' -iA git`
   2. Authenticate your computer with GitHub:
       1. Create a new SSH key for GitHub:
           * `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_github.com -C 'default@NixOS-VM on github.com'`
@@ -98,10 +100,15 @@ We take security very seriously and make heavy use of [PGP](https://en.wikipedia
 
 We also use [Keybase](https://keybase.io/) for managing PGP identities. If you haven't signed up for that, do so now.
 
+(Many of these instructions come from this [reference](https://iwader.co.uk/post/signing-git-commits-keybase-gpg-key).)
+
   1. Install GPG: `nix-env -f '<nixpkgs>' -iA gnupg`
   2. Install the Keybase client: `nix-env -f '<nixpkgs>' -iA keybase`
   3. Log in to the Keybase client: `keybase login`
   4. Import your Keybase identity into GPG:
       * `keybase pgp export --secret | gpg --allow-secret-key-import --import`
-      * ([referencehere](https://iwader.co.uk/post/signing-git-commits-keybase-gpg-key))
-  5. Install [git-crypt](https://www.agwa.name/projects/git-crypt/) for working with secret files: `nix-env -f '<nixpkgs>' -iA git-crypt`
+  5. Tell `git` to sign your commits:
+      * `git config --global user.signingkey <your-key-name>` (use `gpg2 --list-secret-keys` to see your key)
+      * `git config --global commit.gpgsign true`
+      * `git config --global gpg.program gpg2`
+  6. Install [git-crypt](https://www.agwa.name/projects/git-crypt/) for working with secret files: `nix-env -f '<nixpkgs>' -iA git-crypt`
