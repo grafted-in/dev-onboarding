@@ -22,5 +22,7 @@
   7. Log in as the non-root user (`default` is the name used above).
   8. Set up your terminal to use your user's channel:
       * `echo 'export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(whoami)/channels/nixpkgs:$NIX_PATH' > ~/.bashrc`
-  9. (Optional) Clean up garbage and take a snapshot: `nix-collect-garbage -d`
-      * **WARNING**: This can be dangerous if your system is not stable. Try rebooting the machine and logging in to make sure things are working with the current profile before destroying your ability to rollback.
+  9. On a VM:
+      * Configure NixOS *System Settings -> Power Management* and disable all energy saving features.
+      * (Optional) Clean up garbage and take a snapshot: `nix-collect-garbage -d`
+          * **WARNING**: This can be dangerous if your system is not stable. Try rebooting the machine and logging in to make sure things are working with the current profile before destroying your ability to rollback.
