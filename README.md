@@ -68,7 +68,7 @@ user-upgrade-channel
 user-build
 ```
 
-In the following steps, anything marked with \* will already be done by these scripts step.
+In the following steps, anything marked with \* will already be done by these scripts.
 
 
 ### Package channel
