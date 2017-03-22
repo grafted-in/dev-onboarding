@@ -10,10 +10,11 @@ nixpkgs_channel=https://nixos.org/channels/nixpkgs-unstable
 
 
 function user-packages() {
-  # Customized packages
+  # Other packages
   # echo google-chrome
 
   # Common tools
+  echo curl
   echo gnugrep
   echo gnumake
   echo wget
