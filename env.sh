@@ -17,7 +17,14 @@ function user-packages() {
   echo curl
   echo gnugrep
   echo gnumake
+  echo gzip
+  echo unzip
   echo wget
+  echo zip
+
+  # Nix tools
+  echo nix-prefetch-scripts
+  echo nix-repl
 
   # Security tools
   echo gnupg
@@ -27,7 +34,6 @@ function user-packages() {
   # Tools for working with code
   echo git
   echo git-crypt
-  echo nix-repl
   echo shellcheck
   echo vim
   echo vscode
