@@ -43,20 +43,45 @@ To simplify development practices we try to all start out with an environment th
   2. Open a terminal.
       * **NOTE:** In the NixOS terminal copy has the shortcut `Ctrl+Shift+C` and paste has the shortcut `Ctrl+Shift-V`. These are different than normal and it's easy to get confused! You can also use the right-click menu to copy/paste or look up the shortcuts again.
   3. Upgrade to latest: `sudo nixos-rebuild switch --upgrade`
-  4. Set `nixpkgs-unstable` as your package channel:
+
+
+### User configuration
+
+Many aspects of your user configuration can be controlled with a simple declarative script such as the `env.sh` script included with this project.
+
+To initialize your user with the starting configuration, run the following commands:
+
+```bash
+# Download the initial env.sh script
+curl -o ~/env.sh -fsSL https://raw.githubusercontent.com/grafted-in/dev-onboarding/master/env.sh
+
+# Automatically load it whenever you open a terminal.
+echo 'source "$HOME/env.sh"' >> ~/.bashrc
+
+# Load it now.
+source ~/.bashrc
+
+# Set up your channel
+user-upgrade-channel
+
+# Build the user configuration
+user-build
+```
+
+In the following steps, anything marked with \* will already be done by these scripts step.
+
+
+### Package channel
+
+Your system itself is based on a stable release channel of NixOS. However, for most packages needed at the user-level, we want more frequent updates so we'll use the `nixpkgs-unstable` channel. This channel is also the only one that has a cache for macOS, which is occassionally useful when sharing projects.
+
+  1. \* Set `nixpkgs-unstable` as your Nix package channel:
       * `nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs`
-  5. Update:
+  2. \* Update the channel and upgrade packages:
       * `nix-channel --update`
       * `nix-env --upgrade`
 
-**Automated setup:** In the following sections you will need to install many dependencies and set several configurations. Most of this has been automated by the `env.sh` script. To use that, run the following:
-
-```bash
-source <(curl -fsSL https://raw.githubusercontent.com/grafted-in/dev-onboarding/master/env.sh)
-build-user
-```
-
-In the following steps, anything marked with \* will already be done by this automated step.
+If you've set up the `env.sh` script as described above, this entire section can be performed by running `user-upgrade-channel`.
 
 
 ### Build environment
@@ -71,6 +96,8 @@ Install the following tools for working with code:
   3. \* Install [HLint](http://community.haskell.org/~ndm/darcs/hlint/hlint.htm) for getting hints on how to improve your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.hlint`
   4. \* Install [Stylish Haskell](https://github.com/jaspervdj/stylish-haskell/blob/master/README.markdown) for help formatting your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.stylish-haskell`
   5. \* Install [ShellCheck](http://www.shellcheck.net/) for help writing scripts: `nix-env -f '<nixpkgs>' -iA shellcheck`
+
+If you've set up the `env.sh` script as described above, this entire section can be performed by running `user-build`.
 
 
 ### Your editor

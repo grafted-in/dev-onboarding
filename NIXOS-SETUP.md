@@ -7,14 +7,13 @@
       * `nix.extraOptions = "auto-optimise-store = true";`
       * Create a non-root user with a password by adding something like this:
 
-            ```nix
             users.users.default = {
                 isNormalUser = true;
                 home         = "/home/default";
                 password     = "insecure-password";
                 # hashedPassword = "some-hash"; # Use this for real security, but you need to know how to use it.
             };
-            ```
+
 
   5. Start optimizing the store: `nix-store --optimize`.
   6. Use this configuration and upgrade by running `sudo nixos-rebuild switch --upgrade`.
