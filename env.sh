@@ -23,6 +23,7 @@ function user-packages() {
   echo zip
 
   # Nix tools
+  echo nix
   echo nix-prefetch-scripts
   echo nix-repl
 
@@ -73,7 +74,7 @@ function user-set-channel() {
 function user-upgrade-channel() {
   user-set-channel
   nix-channel --update
-  nix-env --upgrade
+  nix-env -f '<nixpkgs>' --upgrade
 }
 
 function user-build() {
@@ -83,8 +84,8 @@ function user-build() {
   user-set-channel
 
   # Apply nixpkgs config
-  mkdir -p "$HOME/.nixpkgs"
-  user-nix-config > "$HOME/.nixpkgs/config.nix"
+  mkdir -p "$HOME/.config/nixpkgs"
+  user-nix-config > "$HOME/.config/nixpkgs/config.nix"
 
   # Apply packages
   nix-env -f '<nixpkgs>' --remove-all -iA $(user-packages)
