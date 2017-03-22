@@ -116,6 +116,25 @@ Unless you already know a ton about what you're doing, we'll start with [Visual 
       * `Haskero` (needs `stack` and `intero`)
       * `shellcheck` (needs `shellcheck`)
       * `stylish-haskell` (needs `stylish-haskell`)
+  4. Configure VS Code's user settings in *Preferences -> Settings*. To start, you can use settings like these:
+
+          {
+            "editor.renderWhitespace": "boundary",
+            "editor.tabSize": 2,
+            "editor.wordWrap": "off",
+
+            "files.trimTrailingWhitespace": true,
+            "files.exclude": {
+              "**/.git": true,
+              "**/.svn": true,
+              "**/.hg": true,
+              "*.hi": true,
+              "*.o": true
+            },
+
+            "workbench.colorTheme": "Visual Studio Dark"
+          }
+
 
 
 ### Getting source code
