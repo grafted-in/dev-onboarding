@@ -87,7 +87,7 @@ function user-build() {
   user-nix-config > "$HOME/.nixpkgs/config.nix"
 
   # Apply packages
-  nix-env -f '<nixpkgs>' -iA $(user-packages)
+  nix-env -f '<nixpkgs>' --remove-all -iA $(user-packages)
 
   # Apply various configurations
   user-apply-app-config
