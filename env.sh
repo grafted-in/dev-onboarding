@@ -12,12 +12,14 @@ nixpkgs_channel=https://nixos.org/channels/nixpkgs-unstable
 function user-packages() {
   # Other packages
   # echo google-chrome
+  # echo htop
 
   # Common tools
   echo curl
   echo gnugrep
   echo gnumake
   echo gzip
+  echo less
   echo unzip
   echo wget
   echo zip

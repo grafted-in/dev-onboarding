@@ -30,7 +30,7 @@ Anything marked with \*\* means that the service is generally useful and you are
 
 To simplify development practices we try to all start out with an environment that is almost identical. You may customize your development environment as you become more comfortable with the tools and systems.
 
-  1. You must be using [NixOS](https://nixos.org/) (a unique Linux distribution). If you're on another Linux distribution, let's discuss. If you want to set this up yourself (either as a virtual machine or on your host) then refer to `NIXOS-SETUP.md`. However, for most people, just start with a virtual machine (VM) and use Grafted-In's base pre-built image:
+  1. You must be using [NixOS](https://nixos.org/) (a unique Linux distribution). If you're on another Linux distribution, let's discuss. If you want to set this up yourself (either as a virtual machine or on your host) then refer to `NIXOS-SETUP.md`. However, for most people, just start with a virtual machine (VM) and use Grafted-In's base pre-built image.
       1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
       2. Download the Grafted-In base NixOS virtual machine (this will be provided separately). Put the folder in a place that won't change.
       3. Tell VirtualBox about your machine by opening VirtualBox and selecting *Machine -> Add...* and finding your machine.
@@ -40,6 +40,7 @@ To simplify development practices we try to all start out with an environment th
           3. **Use VirtualBox to take a snapshot of the machine before you make any changes.** This will make it much easier to undo bad choices. We recommend that you take snapshots before doing any major changes to your system. (In VirtualBox you can take a snapshot by clicking on your machine and selecting the *Snapshots* tab next to the *Details* tab.)
       5. Enable bidirectional clipboard (so you can copy/paste between host and VM): *Devices -> Shared Clipboard -> Bidirectional*.
       6. Log in to this machine (credentials will be provided separately).
+      7. **NOTE:** We have encountered issues where sometimes the pre-built image does not work on certain computers. In this case you need to build your image from scratch!
   2. Open a terminal.
       * **NOTE:** In the NixOS terminal copy has the shortcut `Ctrl+Shift+C` and paste has the shortcut `Ctrl+Shift-V`. These are different than normal and it's easy to get confused! You can also use the right-click menu to copy/paste or look up the shortcuts again.
   3. Upgrade to latest: `sudo nixos-rebuild switch --upgrade`
@@ -52,7 +53,7 @@ Many aspects of your user configuration can be controlled with a simple declarat
 To initialize your user with the starting configuration, run the following commands:
 
 ```bash
-# Download the initial env.sh script
+# Download the initial env.sh script.
 curl -o ~/env.sh -fsSL https://raw.githubusercontent.com/grafted-in/dev-onboarding/master/env.sh
 
 # Automatically load it whenever you open a terminal.
@@ -61,10 +62,10 @@ echo 'source "$HOME/env.sh"' >> ~/.bashrc
 # Load it now.
 source ~/.bashrc
 
-# Set up your channel
+# Set up your channel.
 user-upgrade-channel
 
-# Build the user configuration
+# Build the user configuration.
 user-build
 ```
 
@@ -80,6 +81,9 @@ Your system itself is based on a stable release channel of NixOS. However, for m
   2. \* Update the channel and upgrade packages:
       * `nix-channel --update`
       * `nix-env --upgrade`
+  3. \* Allow restrictive licensed applications to be installed:
+      * `mkdir -p ~/.config/nixpkgs`
+      * `echo '{ allowUnfree = true; }' > ~/.config/nixpkgs/config.nix`
 
 If you've set up the `env.sh` script as described above, this entire section can be performed by running `user-upgrade-channel`.
 
@@ -104,10 +108,7 @@ If you've set up the `env.sh` script as described above, this entire section can
 
 Unless you already know a ton about what you're doing, we'll start with [Visual Studio Code](http://code.visualstudio.com/).
 
-  1. \* Allow restrictive licensed applications to be installed:
-      * `mkdir -p ~/.nixpkgs`
-      * `echo '{ allowUnfree = true; }' > ~/.nixpkgs/config.nix`
-  1. \* Install the editor: `nix-env -f '<nixpkgs>' -iA vscode`
+  1. \* Install the editor (this requires that you allow non-free packages): `nix-env -f '<nixpkgs>' -iA vscode`
   2. Open it: `code`
   3. Install the following extensions (these depend on some the tools you installed in **Build environment** above):
       * `Nix`

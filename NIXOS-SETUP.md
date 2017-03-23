@@ -8,19 +8,17 @@
       * Create a non-root user with a password by adding something like this:
 
             users.users.default = {
-                isNormalUser = true;
-                home         = "/home/default";
-                password     = "insecure-password";
-                # hashedPassword = "some-hash"; # Use this for real security, but you need to know how to use it.
+              isNormalUser = true;
+              home         = "/home/default";
+              extraGroups  = ["wheel"];  # Allow this user to act as root.
+              password     = "insecure-password";
+              # hashedPassword = "some-hash"; # Use this for real security, but you need to know how to use it.
             };
-
 
   5. Start optimizing the store: `nix-store --optimize`.
   6. Use this configuration and upgrade by running `sudo nixos-rebuild switch --upgrade`.
   7. Log in as the non-root user (`default` is the name used above).
-  8. Set up your terminal to use your user's channel:
-      * `echo 'export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(whoami)/channels/nixpkgs:$NIX_PATH' > ~/.bashrc`
-  9. On a VM:
+  8. On a VM:
       * Configure NixOS *System Settings -> Power Management* and disable all energy saving features.
       * (Optional) Clean up garbage and take a snapshot: `nix-collect-garbage -d`
           * **WARNING**: This can be dangerous if your system is not stable. Try rebooting the machine and logging in to make sure things are working with the current profile before destroying your ability to rollback.
