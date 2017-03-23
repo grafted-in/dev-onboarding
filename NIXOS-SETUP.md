@@ -2,7 +2,9 @@
 
   1. Download the "Minimal installation CD, 64-bit" from [here](https://nixos.org/nixos/download.html).
   2. Whether you're creating a virtual machine (VM) or setting up your host, you can follow the instructions here to install: https://youtu.be/7B2hSo8ihjI
-      * We use [VirtualBox](https://www.virtualbox.org/) for most things, so for a VM we recommend using it.
+      * When building a VM:
+          * We typically use [VirtualBox](https://www.virtualbox.org/).
+          * Use a dynamically sized hard disk and give a lot of space (like 500GB). Resizing the hard disk later is non-trivial so it's worth just making it large at the beginning. NixOS also tends to use a lot of disk space.
   4. Set a few configurations in `/etc/nixos/configuration.nix`:
       * `nix.extraOptions = "auto-optimise-store = true";`
       * Create a non-root user with a password by adding something like this:
