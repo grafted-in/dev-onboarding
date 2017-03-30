@@ -20,8 +20,10 @@ function user-packages() {
   echo gnumake
   echo gzip
   echo less
+  echo tree
   echo unzip
   echo wget
+  echo xclip
   echo zip
 
   # Nix tools
