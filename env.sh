@@ -49,11 +49,6 @@ function user-packages() {
   echo haskellPackages.hlint
   echo haskellPackages.intero
   echo haskellPackages.stylish-haskell
-
-  # VSCode likes to have all dependencies installed from the same channel
-  echo bash
-  echo coreutils
-  echo which
 }
 
 function user-nix-config() {
