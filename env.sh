@@ -73,7 +73,6 @@ function user-set-channel() {
 function user-upgrade-channel() {
   user-set-channel
   nix-channel --update
-  nix-env -f '<nixpkgs>' --upgrade
 }
 
 function user-build() {
