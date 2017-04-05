@@ -109,15 +109,14 @@ If you've set up the `env.sh` script as described above, this entire section can
 Unless you already know a ton about what you're doing, we'll start with [Visual Studio Code](http://code.visualstudio.com/).
 
   1. \* Install the editor (this requires that you allow non-free packages): `nix-env -f '<nixpkgs>' -iA vscode`
-  2. Open it: `code`
-  3. Install the following extensions (these depend on some the tools you installed in **Build environment** above):
+  2. \* Open it (run `code`) and install the following extensions (these depend on some the tools you installed in **Build environment** above):
       * `Nix`
       * `Haskell Syntax Highlighting`
       * `haskell-linter` (needs `hlint`)
       * `Haskero` (needs `stack` and `intero`)
       * `shellcheck` (needs `shellcheck`)
       * `stylish-haskell` (needs `stylish-haskell`)
-  4. Configure VS Code's user settings in *Preferences -> Settings*. To start, you can use settings like these:
+  3. Configure VS Code's user settings in *Preferences -> Settings*. To start, you can use settings like these:
 
           {
             "editor.renderWhitespace": "boundary",

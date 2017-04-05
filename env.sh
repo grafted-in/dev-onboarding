@@ -51,6 +51,16 @@ function user-packages() {
   echo haskellPackages.stylish-haskell
 }
 
+function vscode-extensions() {
+  echo bbenoist.Nix
+  echo hoovercj.haskell-linter
+  echo justusadam.language-haskell
+  echo timonwong.shellcheck
+  echo Vans.haskero
+  echo vigoo.stylish-haskell
+}
+
+
 function user-nix-config() {
   cat <<'NIX'
 {
@@ -64,6 +74,10 @@ function user-apply-app-config() {
   stack config set system-ghc --global true
 
   git config --global gpg.program gpg2
+
+  for ext in $(vscode-extensions); do
+    code --install-extension "$ext"
+  done
 }
 
 function user-set-channel() {
