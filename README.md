@@ -142,11 +142,23 @@ Unless you already know a ton about what you're doing, we'll start with [Visual 
 We'll use [Git](https://git-scm.com/) for [version control](https://en.wikipedia.org/wiki/Version_control).
 
   1. \* Install Git: `nix-env -f '<nixpkgs>' -iA git`
-  2. Authenticate your computer with GitHub:
+  2. Start your SSH configuration file by creating a file at `~/.ssh/config` and giving it the following contents:
+
+         AddKeysToAgent yes
+         IdentitiesOnly yes
+
+  3. Authenticate your computer with GitHub:
       1. Create a new SSH key for GitHub:
           * `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_github.com -C 'default@NixOS-VM on github.com'`
-      2. Show your public key: `cat ~/.ssh/id_ed25519_github.com.pub`
-      3. Log in to GitHub online and add your new SSH key. Use the output of the previous command to share the key with GitHub.
+          * It will ask you to create a password. You can leave it blank. For super security, give it a secure (i.e. random) password and save that password in your password manager (like LastPass).
+      2. Show your public key: `cat ~/.ssh/id_ed25519_github.com.pub` (be sure you use the file ending in `.pub`!)
+      3. Log in to GitHub online and add your new SSH key to your profile. Use the output of the previous command to share the key with GitHub.
+      4. Add a section to `~/.ssh/config` for GitHub to use this key:
+
+             Host github.com
+               User git
+               IdentityFile ~/.ssh/id_ed25519_github.com
+
   3. Repeat the previous process for GitLab, replacing things as necessary.
   4. If you signed up for BitBucket, do the same thing for BitBucket.
 
