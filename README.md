@@ -175,7 +175,10 @@ We also use [Keybase](https://keybase.io/) for managing PGP identities. If you h
   2. \* Install the Keybase client: `nix-env -f '<nixpkgs>' -iA keybase`
   3. Log in to the Keybase client: `keybase login`
   4. Import your Keybase identity into GPG:
-      * `keybase pgp export --secret | gpg --allow-secret-key-import --import`
+      a. If one does not exist create by typing
+      * `keybase pgp gen` --Refer to keybase.io for instructions on creating a key
+      b. If you already have a Keybase key
+      * `keybase pgp export --secret | gpg2 --allow-secret-key-import --import`
   5. Tell `git` to sign your commits:
       * `git config --global user.signingkey <your-key-name>` (use `gpg2 --list-secret-keys` to see your key)
       * `git config --global commit.gpgsign true`
