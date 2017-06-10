@@ -175,8 +175,10 @@ We also use [Keybase](https://keybase.io/) for managing PGP identities. If you h
   2. [auto] Install the Keybase client: `nix-env -f '<nixpkgs>' -iA keybase`
   3. Log in to the Keybase client: `keybase login`
   4. Import your Keybase identity into GPG:
+      * Create one if not done already:
+          * `keybase pgp gen` (refer to keybase.io for instructions on creating a key)
       * `keybase pgp export | gpg2 --import`
-      * `keybase pgp export --secret | gpg2 --allow-secret-key-import --import`
+      * `keybase pgp export --secret | gpg2 --allow-secret-key-import   --import`
       * `gpg2 --edit-key <your keybase.io user email>`
           * In `gpg2` prompt, enter `trust` and select the number for "Trust ultimately". Then enter `save` to finish.
   5. Tell `git` to sign your commits:
