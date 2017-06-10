@@ -69,19 +69,19 @@ user-upgrade-channel
 user-build
 ```
 
-In the following steps, anything marked with \* will already be done by these scripts.
+In the following steps, anything marked with **[auto]** will already be done by these scripts.
 
 
 ### Package channel
 
 Your system itself is based on a stable release channel of NixOS. However, for most packages needed at the user-level, we want more frequent updates so we'll use the `nixpkgs-unstable` channel. This channel is also the only one that has a cache for macOS, which is occassionally useful when sharing projects.
 
-  1. \* Set `nixpkgs-unstable` as your Nix package channel:
+  1. [auto] Set `nixpkgs-unstable` as your Nix package channel:
       * `nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs`
-  2. \* Update the channel and upgrade packages:
+  2. [auto] Update the channel and upgrade packages:
       * `nix-channel --update`
       * `nix-env --upgrade`
-  3. \* Allow restrictive licensed applications to be installed:
+  3. [auto] Allow restrictive licensed applications to be installed:
       * `mkdir -p ~/.config/nixpkgs`
       * `echo '{ allowUnfree = true; }' > ~/.config/nixpkgs/config.nix`
 
@@ -92,14 +92,14 @@ If you've set up the `env.sh` script as described above, this entire section can
 
 Install the following tools for working with code:
 
-  1. \* Install Haskell's [stack](http://haskellstack.org) tool: `nix-env -f '<nixpkgs>' -iA stack`
+  1. [auto] Install Haskell's [stack](http://haskellstack.org) tool: `nix-env -f '<nixpkgs>' -iA stack`
       * \* On NixOS `stack` needs to use a system-installed GHC:
           * `nix-env -f '<nixpkgs>' -iA ghc`
           * `stack config set system-ghc --global true`
-  2. \* Install [Intero](https://hackage.haskell.org/package/intero) for editor support: `nix-env -f '<nixpkgs>' -iA haskellPackages.intero`
-  3. \* Install [HLint](http://community.haskell.org/~ndm/darcs/hlint/hlint.htm) for getting hints on how to improve your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.hlint`
-  4. \* Install [Stylish Haskell](https://github.com/jaspervdj/stylish-haskell/blob/master/README.markdown) for help formatting your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.stylish-haskell`
-  5. \* Install [ShellCheck](http://www.shellcheck.net/) for help writing scripts: `nix-env -f '<nixpkgs>' -iA shellcheck`
+  2. [auto] Install [Intero](https://hackage.haskell.org/package/intero) for editor support: `nix-env -f '<nixpkgs>' -iA haskellPackages.intero`
+  3. [auto] Install [HLint](http://community.haskell.org/~ndm/darcs/hlint/hlint.htm) for getting hints on how to improve your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.hlint`
+  4. [auto] Install [Stylish Haskell](https://github.com/jaspervdj/stylish-haskell/blob/master/README.markdown) for help formatting your code: `nix-env -f '<nixpkgs>' -iA haskellPackages.stylish-haskell`
+  5. [auto] Install [ShellCheck](http://www.shellcheck.net/) for help writing scripts: `nix-env -f '<nixpkgs>' -iA shellcheck`
 
 If you've set up the `env.sh` script as described above, this entire section can be performed by running `user-build`.
 
@@ -108,8 +108,8 @@ If you've set up the `env.sh` script as described above, this entire section can
 
 Unless you already know a ton about what you're doing, we'll start with [Visual Studio Code](http://code.visualstudio.com/).
 
-  1. \* Install the editor (this requires that you allow non-free packages): `nix-env -f '<nixpkgs>' -iA vscode`
-  2. \* Open it (run `code`) and install the following extensions (these depend on some the tools you installed in **Build environment** above):
+  1. [auto] Install the editor (this requires that you allow non-free packages): `nix-env -f '<nixpkgs>' -iA vscode`
+  2. [auto] Open it (run `code`) and install the following extensions (these depend on some the tools you installed in **Build environment** above):
       * `Nix`
       * `Haskell Syntax Highlighting`
       * `haskell-linter` (needs `hlint`)
@@ -141,7 +141,7 @@ Unless you already know a ton about what you're doing, we'll start with [Visual 
 
 We'll use [Git](https://git-scm.com/) for [version control](https://en.wikipedia.org/wiki/Version_control).
 
-  1. \* Install Git: `nix-env -f '<nixpkgs>' -iA git`
+  1. [auto] Install Git: `nix-env -f '<nixpkgs>' -iA git`
   2. Start your SSH configuration file by creating a file at `~/.ssh/config` and giving it the following contents:
 
          AddKeysToAgent yes
@@ -171,13 +171,16 @@ We also use [Keybase](https://keybase.io/) for managing PGP identities. If you h
 
 (Many of these instructions come from this [reference](https://iwader.co.uk/post/signing-git-commits-keybase-gpg-key).)
 
-  1. \* Install GPG: `nix-env -f '<nixpkgs>' -iA gnupg`
-  2. \* Install the Keybase client: `nix-env -f '<nixpkgs>' -iA keybase`
+  1. [auto] Install GPG: `nix-env -f '<nixpkgs>' -iA gnupg`
+  2. [auto] Install the Keybase client: `nix-env -f '<nixpkgs>' -iA keybase`
   3. Log in to the Keybase client: `keybase login`
   4. Import your Keybase identity into GPG:
-      * `keybase pgp export --secret | gpg --allow-secret-key-import --import`
+      * `keybase pgp export | gpg2 --import`
+      * `keybase pgp export --secret | gpg2 --allow-secret-key-import --import`
+      * `gpg2 --edit-key <your keybase.io user email>`
+          * In `gpg2` prompt, enter `trust` and select the number for "Trust ultimately". Then enter `save` to finish.
   5. Tell `git` to sign your commits:
-      * `git config --global user.signingkey <your-key-name>` (use `gpg2 --list-secret-keys` to see your key)
+      * `git config --global user.signingkey <your key name>` (use `gpg2 --list-secret-keys` to see your key)
       * `git config --global commit.gpgsign true`
-      * \* `git config --global gpg.program gpg2`
-  6. \* Install [git-crypt](https://www.agwa.name/projects/git-crypt/) for working with secret files: `nix-env -f '<nixpkgs>' -iA git-crypt`
+      * [auto] `git config --global gpg.program gpg2`
+  6. [auto] Install [git-crypt](https://www.agwa.name/projects/git-crypt/) for working with secret files: `nix-env -f '<nixpkgs>' -iA git-crypt`
